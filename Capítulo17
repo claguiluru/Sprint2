@@ -1,0 +1,27 @@
+#! python3
+
+# Capítulo 17
+
+import os
+from PIL import Image
+
+for foldername, subfolders, filenames in os.walk('c:\\'):
+    numPhotoFiles = 0
+    numNonPhotoFiles = 0
+    for filename in filenames:
+        if not filename.endswith('.png') or filename.endswith('.jpg'):
+            numNonPhotoFiles += 1
+            continue
+
+        try: im = Image.open(os.path.join(foldername, filename))
+        except: continue
+        width, height = im.size
+
+        if width >= 500 and height >= 500:
+            numPhotoFiles += 1
+        else:
+            numNonPhotoFiles += 1
+
+        if numPhotoFiles > numNonPhotoFiles:
+            print(foldername)
+
