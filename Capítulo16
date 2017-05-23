@@ -1,0 +1,26 @@
+#! python3
+
+#Capitulo 16
+import random
+import smtplib
+
+
+def emailChores(rchore, remail):
+    smtpObj = smtplib.SMTP('smtp.gmail.com',587)
+    smtpObj.ehlo()
+    smtpObj.starttls()
+    password=raw_input('Senha: ')
+    smtpObj.login('rupavanelli@gmail.com', password)
+    body = 'Subject: Sua Tarefa\n\nSua tarefa semanal é : %s' % rchore
+    print('Sending chore email to ' + remail + '...')
+    smtpObj.sendmail('rupavanelli@gmail.com', remail, body)
+    smtpObj.quit()
+
+chores = ['louça', 'banheiro', 'aspirar', 'lixo']
+emails = ['ruchele@conselt.com.br', 'rupavanelli@gmail.com','rupavanelli@hotmail.com', 'lucas.germano08@hotmail.com']
+
+for i in range(0, len(emails)):
+    randomChore = random.choice(chores)
+    emailChores(randomChore, emails[i])
+    chores.remove(randomChore)
+
